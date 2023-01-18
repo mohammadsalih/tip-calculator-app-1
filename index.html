@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Frontend Mentor | Tip calculator app</title>
+  </head>
+  <body>
+    <img src="images/logo.svg" alt="" />
+
+    <section class="app-container">
+      <div class="app-inputs app-io-box">
+        <div class="app-inputs-row">
+          <h2 class="io-title">bill</h2>
+
+          <div class="app-input-container">
+            <img src="images/icon-dollar.svg" class="app-input-icon" alt="" />
+
+            <input
+              type="number"
+              name="bill"
+              id="bill"
+              class="app-input"
+              oninput="bill(event)"
+            />
+          </div>
+        </div>
+
+        <div class="app-inputs-row">
+          <h2 class="io-title">Select Tip %</h2>
+
+          <div class="three-column-grid">
+            <button onclick="active(event)" class="tip-input">5%</button>
+            <button onclick="active(event)" class="tip-input">10%</button>
+            <button onclick="active(event)" class="tip-input">15%</button>
+            <button onclick="active(event)" class="tip-input">25%</button>
+            <button onclick="active(event)" class="tip-input">50%</button>
+
+            <input
+              type="number"
+              name="tip"
+              oninput="active(event)"
+              placeholder="Custom"
+              id="tip"
+              class="tip-input tip-input-custom"
+            />
+          </div>
+        </div>
+
+        <div class="app-inputs-row">
+          <h2 class="io-title">Number of People</h2>
+
+          <div class="app-input-container">
+            <img src="images/icon-person.svg" class="app-input-icon" alt="" />
+
+            <input
+              type="number"
+              name="nop"
+              id="nop"
+              class="app-input"
+              oninput="nop(event)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="app-outputs app-io-box">
+        <div class="app-outputs-row">
+          <h2 class="io-title o-title">
+            Tip Amount
+            <span>/ person </span>
+          </h2>
+
+          <p class="app-output">$<span id="tip-output">0.00</span></p>
+        </div>
+
+        <div class="app-outputs-row">
+          <h2 class="io-title o-title">
+            Total
+            <span>/ person</span>
+          </h2>
+
+          <p class="app-output">$<span id="total-output">0.00</span></p>
+        </div>
+
+        <button class="btn" onclick="reset()">Reset</button>
+      </div>
+    </section>
+    <script>
+      let bill_amount;
+      let tip_amount;
+      let nop_amount;
+
+      let tip_output = document.getElementById("tip-output");
+      let total_output = document.getElementById("total-output");
+
+      function removePercent(text) {
+        return text.replace(/%/g, "");
+      }
+
+      function bill(event) {
+        let element = event.target;
+        bill_amount = parseInt(element.value);
+      }
+
+      function active(event) {
+        let element = event.target;
+        let elements = document.getElementsByClassName("tip-input");
+
+        for (let i = 0; i < elements.length; i++) {
+          elements[i].classList.remove("tip-input-activ");
+        }
+        element.classList.add("tip-input-activ");
+
+        if (element.innerHTML == "") {
+          tip_amount = parseInt(element.value) * 0.01;
+        } else {
+          tip_amount = parseInt(removePercent(element.innerHTML)) * 0.01;
+        }
+      }
+
+      function nop(event) {
+        let element = event.target;
+        nop_amount = parseInt(element.value);
+
+        if (
+          bill_amount !== undefined &&
+          tip_amount !== undefined &&
+          nop_amount !== undefined
+        ) {
+          tip_output.innerHTML = (bill_amount * tip_amount) / nop_amount;
+          total_output.innerHTML =
+            (bill_amount * tip_amount + bill_amount) / nop_amount;
+        }
+      }
+
+      function reset() {
+        bill_amount = 0;
+        tip_amount = 0;
+        nop_amount = 0;
+
+        let tip_elements = document.getElementsByClassName("tip-input");
+
+        let bill_input = document.getElementById("bill");
+        let tip_input = document.getElementById("tip");
+        let nop_input = document.getElementById("nop");
+
+        bill_input.value = "";
+        tip_input.value = "";
+        nop_input.value = "";
+
+        for (let i = 0; i < tip_elements.length; i++) {
+          tip_elements[i].classList.remove("tip-input-activ");
+        }
+
+        tip_output.innerHTML = "0.00";
+        total_output.innerHTML = "0.00";
+      }
+    </script>
+  </body>
+</html>
