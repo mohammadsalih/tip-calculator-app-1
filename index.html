@@ -2,11 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <!-- displays site properly based on user's device -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
       rel="stylesheet"
@@ -24,7 +31,11 @@
           <h2 class="io-title">bill</h2>
 
           <div class="app-input-container">
-            <img src="images/icon-dollar.svg" class="app-input-icon" alt="" />
+            <img
+              src="images/icon-dollar.svg"
+              class="app-input-icon"
+              alt=""
+            />
 
             <input
               type="number"
@@ -40,11 +51,21 @@
           <h2 class="io-title">Select Tip %</h2>
 
           <div class="three-column-grid">
-            <button onclick="active(event)" class="tip-input">5%</button>
-            <button onclick="active(event)" class="tip-input">10%</button>
-            <button onclick="active(event)" class="tip-input">15%</button>
-            <button onclick="active(event)" class="tip-input">25%</button>
-            <button onclick="active(event)" class="tip-input">50%</button>
+            <button onclick="active(event)" class="tip-input">
+              5%
+            </button>
+            <button onclick="active(event)" class="tip-input">
+              10%
+            </button>
+            <button onclick="active(event)" class="tip-input">
+              15%
+            </button>
+            <button onclick="active(event)" class="tip-input">
+              25%
+            </button>
+            <button onclick="active(event)" class="tip-input">
+              50%
+            </button>
 
             <input
               type="number"
@@ -61,7 +82,11 @@
           <h2 class="io-title">Number of People</h2>
 
           <div class="app-input-container">
-            <img src="images/icon-person.svg" class="app-input-icon" alt="" />
+            <img
+              src="images/icon-person.svg"
+              class="app-input-icon"
+              alt=""
+            />
 
             <input
               type="number"
@@ -90,7 +115,9 @@
             <span>/ person</span>
           </h2>
 
-          <p class="app-output">$<span id="total-output">0.00</span></p>
+          <p class="app-output">
+            $<span id="total-output">0.00</span>
+          </p>
         </div>
 
         <button class="btn" onclick="reset()">Reset</button>
@@ -124,8 +151,15 @@
 
         if (element.innerHTML == "") {
           tip_amount = parseInt(element.value) * 0.01;
+          if (tip_amount > 1) {
+            tip_amount = 1;
+          }
         } else {
-          tip_amount = parseInt(removePercent(element.innerHTML)) * 0.01;
+          tip_amount =
+            parseInt(removePercent(element.innerHTML)) * 0.01;
+          if (tip_amount > 1) {
+            tip_amount = 1;
+          }
         }
       }
 
@@ -138,9 +172,14 @@
           tip_amount !== undefined &&
           nop_amount !== undefined
         ) {
-          tip_output.innerHTML = (bill_amount * tip_amount) / nop_amount;
-          total_output.innerHTML =
-            (bill_amount * tip_amount + bill_amount) / nop_amount;
+          tip_output.innerHTML = (
+            (bill_amount * tip_amount) /
+            nop_amount
+          ).toFixed(1);
+          total_output.innerHTML = (
+            (bill_amount * tip_amount + bill_amount) /
+            nop_amount
+          ).toFixed(1);
         }
       }
 
@@ -149,7 +188,8 @@
         tip_amount = 0;
         nop_amount = 0;
 
-        let tip_elements = document.getElementsByClassName("tip-input");
+        let tip_elements =
+          document.getElementsByClassName("tip-input");
 
         let bill_input = document.getElementById("bill");
         let tip_input = document.getElementById("tip");
